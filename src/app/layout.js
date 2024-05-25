@@ -83,9 +83,9 @@ export default function RootLayout({ children }) {
   };
 
   const handleEditTask = async (payload) => {
-    let { id, isDone, description, showAlert = false  } = payload
+    let { id, isDone, title, showAlert = false  } = payload
     try {
-      if (description === '') {
+      if (title === '') {
         Swal.fire({
           title: "Warning",
           text: "Title cannot be empty.",
@@ -100,7 +100,7 @@ export default function RootLayout({ children }) {
         },
         body: JSON.stringify({ 
           dataId: "updateTask", 
-          data: {id, isDone, description} 
+          data: {id, isDone, title} 
         })
       });
       if (response.status === 200) {
@@ -138,7 +138,7 @@ export default function RootLayout({ children }) {
         body: JSON.stringify({ 
           dataId: "createTask", 
           data: {
-            description: title,
+            title: title,
             isDone: false, 
             userId: userId
           } 

@@ -45,7 +45,7 @@ const Page = () => {
                   type='button' 
                   onClick={() => {
                     action.setModeFormTask('add')
-                    action.handleEditTask({ ...state.formTask, description: state.formTask.title, showAlert: true })
+                    action.handleEditTask({ ...state.formTask, title: state.formTask.title, showAlert: true })
                   }}
                   className='bg-[#FFB46F] hover:opacity-80 w-[115px] h-[36px] rounded-[10px] mx-auto mt-4'
                 >

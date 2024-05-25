@@ -1,44 +1,62 @@
 import { createUser, getUserByEmail } from "../../users/service";
 import { compare } from "bcryptjs";
 import { response } from "@/helpers/response";
+import { log } from "@/helpers/log";
 
 export async function loginGuest() {
-  const newGuest = await createUser({
-    roleType: 0,
-    firstName: 'Guest'
-  })
+  try {
+    const newGuest = await createUser({
+      roleType: 0,
+      firstName: 'Guest'
+    })
 
-  const result = { 
-    message: "Login successful",
-    user: {
-      id: newGuest.id,
-      roleType: newGuest.roleType,
-    } 
+    const result = { 
+      message: "Login successful",
+      user: {
+        id: newGuest.id,
+        roleType: newGuest.roleType,
+        firstName: "Guest",
+      } 
+    }
+
+    log('Guest user logged in', { userId: newGuest.id });
+    return response(result, { status: 200, statusText: "OK" })
+  } catch (error) {
+    log('Error logging in guest user', { error: error.message });
+    throw error;
   }
-  return response(result, { status: 200, statusText: "OK" })
 }
 
 export async function loginUserRegistered(data) {
-  const { email, password } = data
+  try {
+    const { email, password } = data
 
-  const user = await getUserByEmail(email);
-  if (!user) {
-    return response({ message: "Invalid email or password" }, { status: 400, statusText: "Bad Request" });
-  }
+    const user = await getUserByEmail(email);
+    if (!user) {
+      log('Invalid email or password', { email });
+      return response({ message: "Invalid email or password" }, { status: 400, statusText: "Bad Request" });
+    }
 
-  const isPasswordValid = await compare(password, user.password);
-  if (!isPasswordValid) {
-    return response({ message: "Invalid email or password" }, { status: 400, statusText: "Bad Request" });
-  }
+    const isPasswordValid = await compare(password, user.password);
+    if (!isPasswordValid) {
+      log('Invalid email or password', { email });
+      return response({ message: "Invalid email or password" }, { status: 400, statusText: "Bad Request" });
+    }
 
-  const result = { 
-    message: "Login successful", 
-    user: {
-      id: user.id,
-      roleType: user.roleType,
-    } 
+    const result = { 
+      message: "Login successful", 
+      user: {
+        id: user.id,
+        roleType: user.roleType,
+      } 
+    }
+
+    log('User logged in', { userId: user.id });
+    return response(result, { status: 200, statusText: "OK" })
+  } catch (error) {
+    log('Error logging in user', { error: error.message, inputData: data });
+    throw error;
   }
-  return response(result, { status: 200, statusText: "OK" })
 }
 
 

@@ -1,21 +1,24 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  // binaryTargets = env("PRISMA_CLI_BINARY_TARGETS")
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  roleType  Int?
-  firstName String?  @db.VarChar(255)
-  lastName  String?  @db.VarChar(255)
-  email     String?  @unique @db.VarChar(255)
-  password  String?  @db.VarChar(255)
-  role      Role?    @relation("roles_users", fields: [roleType], references: [type])
-  tasks     Task[]   @relation("users_tasks")
+  id        Int     @id @default(autoincrement())
+  roleType  Int
+  firstName String  @db.VarChar(255)
+  lastName  String? @db.VarChar(255)
+  email     String? @unique @db.VarChar(255)
+  password  String? @db.VarChar(255)
+  role      Role    @relation("roles_users", fields: [roleType], references: [type])
+  tasks     Task[]  @relation("users_tasks")
 }
 
 model Role {
@@ -25,10 +28,10 @@ model Role {
 }
 
 model Task {
-  id          Int      @id @default(autoincrement())
-  isDone      Boolean  @default(false)
-  description String?  @db.Text
-  userId      Int?
-  createdAt   DateTime @default(now())
-  user        User?    @relation("users_tasks", fields: [userId], references: [id])
+  id        Int      @id @default(autoincrement())
+  isDone    Boolean  @default(false)
+  title     String   @db.Text
+  userId    Int
+  createdAt DateTime @default(now())
+  user      User     @relation("users_tasks", fields: [userId], references: [id])
 }

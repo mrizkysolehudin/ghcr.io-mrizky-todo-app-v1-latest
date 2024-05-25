@@ -11,14 +11,14 @@ const Card = ({item, handleIsDone}) => {
       <div className='flex justify-between items-center px-3 pb-2 pt-3'>
         <div>
           <p className='flex items-center'>
-            <span className={item?.isDone ? 'line-through' : ''}>{item?.description}</span> 
+            <span className={item?.isDone ? 'line-through' : ''}>{item?.title}</span> 
             <Pencil
               className='ml-1 w-[16px] h-[16px] cursor-pointer hover:opacity-70 rounded-sm hover:text-blue-500'
               onClick={() => {
                 action.setModeFormTask('edit')
                 action.setFormTask((prev) => ({
                   ...prev,
-                  title: item?.description,
+                  title: item?.title,
                   id: item.id,
                   isDone: item.isDone
                 }))

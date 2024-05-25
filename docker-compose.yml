@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo-app-v1
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:12123434@db:5432/db-todo
+      - NEXT_PUBLIC_API_URL=/api
+      - PRISMA_CLI_BINARY_TARGETS=debian-openssl-3.0.x
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: postgres:latest
+    container_name: postgres-db-todo
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=db-todo
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12123434
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  db_data:

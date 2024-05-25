@@ -1,6 +1,6 @@
 import db from "@/configs/db";
 import { response } from "@/helpers/response";
-import { log } from "@/helpers/server/log";
+import { log } from "@/helpers/log";
 
 
 export async function createUser(data) {
