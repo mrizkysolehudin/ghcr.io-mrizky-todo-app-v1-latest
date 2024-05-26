@@ -33,8 +33,12 @@ Docker Compose akan melakukan setup untuk 2 service berikut:
     ```sh
     git clone (link-repository)
     ```
-3. Masuk ke direktori di mana file `docker-compose.yml` berada.
-4. Jalankan service-nya dengan perintah berikut:
+3. Buat file .env dan masukkan kode berikut ini:
+    ```sh
+    NEXT_PUBLIC_API_URL='/api'
+    ```
+4. Masuk ke direktori di mana file `docker-compose.yml` berada.
+5. Jalankan service-nya dengan perintah berikut:
     ```sh
     docker compose up --build -d
     ```

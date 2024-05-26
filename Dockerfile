@@ -1,3 +1,4 @@
+# FROM node
 FROM node:latest
 
 WORKDIR /app
