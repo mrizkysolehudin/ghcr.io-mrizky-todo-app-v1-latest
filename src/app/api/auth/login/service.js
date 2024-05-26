@@ -16,6 +16,7 @@ export async function loginGuest() {
         id: newGuest.id,
         roleType: newGuest.roleType,
         firstName: "Guest",
+        lastName: "",
       } 
     }
 

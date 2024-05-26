@@ -28,7 +28,7 @@ export async function registerUser(data) {
     })
 
     log('User registered successfully', { userId: newUser.id });
-    return response({ data: newUser }, { status: 200, statusText: "OK" })
+    return response({ message: "Register success. Please login...", data: newUser }, { status: 200, statusText: "OK" })
   } catch (error) {
     log('Error registering user', { error: error.message, inputData: data });
     throw error;

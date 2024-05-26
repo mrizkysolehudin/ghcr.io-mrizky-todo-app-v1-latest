@@ -12,11 +12,9 @@ RUN yarn add prisma
 
 COPY . .
 
-
 RUN yarn build
 
 RUN npx prisma generate
 
-ENTRYPOINT ["sh", "-c", "sleep 10 && npx prisma migrate dev"]
 
 CMD ["yarn", "start"]

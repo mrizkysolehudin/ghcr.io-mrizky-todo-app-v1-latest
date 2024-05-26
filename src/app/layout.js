@@ -182,11 +182,10 @@ export default function RootLayout({ children }) {
 
   useEffect(() => {
     if (userId) {
-      getMyProfile(userId);
-      getMyTasks(userId)
+      if(pathname === '/profile' || pathname === '/task') getMyProfile(userId)
+      if(pathname === '/task') getMyTasks(userId)
     } 
-  }, [userId]);
-
+  }, [userId, pathname]);
 
   return (
     <DataContext.Provider 

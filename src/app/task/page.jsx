@@ -35,7 +35,7 @@ const Page = () => {
               <button
                 type='button'
                 onClick={(event) => action.handleAddTask({ event, title: state.formTask.title })}
-                className='bg-[#6FCBFF] w-[105px] h-[36px] rounded-[10px] mx-auto mt-4'
+                className='bg-[#6FCBFF] hover:opacity-80 w-[105px] h-[36px] rounded-[10px] mx-auto mt-4'
               >
                 Add Task
               </button>

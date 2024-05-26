@@ -21,9 +21,11 @@ const Navbar = ({fullName, roleType}) => {
         <Link href={`/task`} className={`hover:text-black/70  ${pathname === '/task' ? 'text-black/70' : ''}`}>
           Task
         </Link>
-        <Link href={roleType === 0 ? '/task' : `/profile`}  className={`hover:text-black/70 ${pathname === '/profile' ? 'text-black/70' : ''}`}>
-          Profile
-        </Link>
+        {roleType === 1 && (
+          <Link href={`/profile`}  className={`hover:text-black/70 ${pathname === '/profile' ? 'text-black/70' : ''}`}>
+            Profile
+          </Link>
+        )}
       </div>
       <div className='flex justify-end text-4xl items-center'>
         <Link href={roleType === 0 ? '/task' : `/profile`}  className='cursor-pointer'>
