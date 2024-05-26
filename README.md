@@ -36,6 +36,7 @@ Docker Compose akan melakukan setup untuk 2 service berikut:
 3. Buat file .env dan masukkan kode berikut ini:
     ```sh
     NEXT_PUBLIC_API_URL='/api'
+    NEXT_PUBLIC_JWT_SECRET_KEY='rahasia'
     ```
 4. Masuk ke direktori di mana file `docker-compose.yml` berada.
 5. Jalankan service-nya dengan perintah berikut:

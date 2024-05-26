@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   const router = useRouter()
   const userCookies = Cookies.get('user');
 
-  const { id: userId, roleType } = userCookies ? JSON.parse(userCookies) : {};
+  const { id: userId, roleType, token } = userCookies ? JSON.parse(userCookies) : {};
   const [userProfile, setUserProfile] = useState({
     id: '',
     roleType: '',
@@ -186,6 +186,12 @@ export default function RootLayout({ children }) {
       if(pathname === '/task') getMyTasks(userId)
     } 
   }, [userId, pathname]);
+
+  useEffect(() => {
+    if (pathname !== '/register' && !token) {
+      router.push('/');
+    }
+  }, [token, pathname, router])
 
   return (
     <DataContext.Provider 

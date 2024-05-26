@@ -2,22 +2,24 @@ import { createUser, getUserByEmail } from "../../users/service";
 import { compare } from "bcryptjs";
 import { response } from "@/helpers/response";
 import { log } from "@/helpers/log";
+import { generateToken } from "@/helpers/jwt";
 
 export async function loginGuest() {
   try {
     const newGuest = await createUser({
       roleType: 0,
-      firstName: 'Guest'
+      firstName: 'Guest',
+      lastName: "",
     })
 
+    const token = generateToken({ id: newGuest.id })
     const result = { 
       message: "Login successful",
       user: {
         id: newGuest.id,
         roleType: newGuest.roleType,
-        firstName: "Guest",
-        lastName: "",
-      } 
+        token,
+      },
     }
 
     log('Guest user logged in', { userId: newGuest.id });
@@ -44,11 +46,13 @@ export async function loginUserRegistered(data) {
       return response({ message: "Invalid email or password" }, { status: 400, statusText: "Bad Request" });
     }
 
+    const token = generateToken({ id: user.id })
     const result = { 
       message: "Login successful", 
       user: {
         id: user.id,
         roleType: user.roleType,
+        token
       } 
     }
 
